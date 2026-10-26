@@ -1,7 +1,5 @@
 # Focus_DLRN_GUI
 
-# Focus DLRN: Graphical User Interface
-
 Focus DLRN provides a graphical user interface (GUI) to allow users to generate personalized neural network models specialized to resolve a selected number of chemical reaction networks (CRN), which can have first or second order pathways. The main goal of the GUI is to generate, in a dynamic and easy way, DLRN models dedicated to specific tasks.
 
 The figure below shows the four pages that the user will go through to create a personalized DLRN model for analyzing measured data sets.
