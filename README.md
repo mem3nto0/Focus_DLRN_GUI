@@ -4,6 +4,10 @@ Focus DLRN provides a graphical user interface (GUI) to allow users to generate 
 
 The figure below shows the four pages that the user will go through to create a personalized DLRN model for analyzing measured data sets.
 
+To run the code, run the __main__.py code, using the comand line:
+    
+    python3 __main__.py
+
 ---
 
 ## Page 1 — Load Data
