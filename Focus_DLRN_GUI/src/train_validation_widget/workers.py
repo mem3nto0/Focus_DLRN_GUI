@@ -63,7 +63,21 @@ class TrainingWorker(QObject):
             known_spectra = self.training_input.known_spectra
             GPU = self.training_input.GPU
 
-            self.trained_model_path = training(output_path+"/"+model_name+".h5",reaction_strings_list,output_path+"/training_data",min_conc,max_conc,tau_lists,N_train_batch,batch_size,dark_state,full_spec_gen,workers,GPU)
+            self.trained_model_path = training(
+                output_path + "/" + model_name + ".h5",
+                reaction_strings_list,
+                output_path + "/training_data",
+                min_conc,
+                max_conc,
+                TA,
+                tau_lists,
+                N_train_batch,
+                batch_size,
+                dark_state,
+                full_spec_gen,
+                workers,
+                GPU,
+            )
             
             #self.model.save(self.training_input.output_path + "/trained_DNN_model.keras")
 

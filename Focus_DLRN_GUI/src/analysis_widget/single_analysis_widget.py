@@ -57,7 +57,7 @@ class SingleAnalysisWidget(QWidget):
 
         widget = ResultResidualsWidget(self)
         if self.residual is not None:
-            widget.plot(np.asarray(self.residual))
+            widget.plot(np.asarray(self.residual), self.time)
         return widget
 
     def _normalise_value(self, value):
@@ -235,7 +235,7 @@ class SingleAnalysisWidget(QWidget):
         if self.result_residuals_widget is not None and hasattr(self.result_residuals_widget, "figure"):
             self.result_residuals_widget.figure.tight_layout()
             self.result_residuals_widget.canvas.draw()
-            self.result_residuals_widget.figure.savefig(save_path, dpi=200, bbox_inches="tight")
+            self.result_residuals_widget.figure.savefig(save_path, dpi=300, bbox_inches="tight")
 
     def save_concentration_trace_image(self, output_dir: str, file_name: str | None = None):
         if not output_dir:
@@ -281,6 +281,6 @@ class SingleAnalysisWidget(QWidget):
                 if self.reconstructed_signal is not None and self.input_data is not None and self.time is not None:
                     self.result_residuals_widget.plot(np.asarray(self.reconstructed_signal), self.time, self.input_data)
             elif self.residual is not None:
-                self.result_residuals_widget.plot(np.asarray(self.residual))
+                self.result_residuals_widget.plot(np.asarray(self.residual), self.time)
         self.update()
 

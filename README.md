@@ -4,9 +4,23 @@ Focus DLRN provides a graphical user interface (GUI) to allow users to generate 
 
 The figure below shows the four pages that the user will go through to create a personalized DLRN model for analyzing measured data sets.
 
-To run the code, run the __main__.py code, using the comand line:
-    
-    python3 __main__.py
+---
+## Installation
+
+This project includes a ready-to-use Conda environment file at [environment.yml](environment.yml). To set up the environment from the repository root:
+
+```bash
+conda env create -f environment.yml
+conda activate linux_focus_dlrn
+```
+
+Once the environment is active, start the GUI from the source directory:
+
+```bash
+cd Focus_DLRN_GUI/src
+python __main__.py
+```
+
 
 ---
 

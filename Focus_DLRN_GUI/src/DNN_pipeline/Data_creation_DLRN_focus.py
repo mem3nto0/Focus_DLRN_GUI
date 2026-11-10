@@ -14,7 +14,8 @@ def Generate_training_data_DLRN_focus(select_model,
                                         index,
                                         Dark_state,
                                         Full_spectra_generation,
-                                        N_traces
+                                        N_traces,
+                                        transient_absorption
                                         ):
 
        
@@ -87,7 +88,7 @@ def Generate_training_data_DLRN_focus(select_model,
         kinetic_traces = kinetic_traces[:,:5]
 
         coeff = np.random.choice(np.array([1,2,4]))
-        Spectra = Spectra_generator(wl, 5, TA_spectra = False)
+        Spectra = Spectra_generator(wl, 5, TA_spectra = transient_absorption)
 
         if Full_spectra_generation == True:
 

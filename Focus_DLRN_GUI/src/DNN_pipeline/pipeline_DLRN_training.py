@@ -60,7 +60,7 @@ def get_lr_callback(initial_lr, min_lr=1.25e-5, decay_factor=0.5, decay_every=2)
 
 
 
-def training(model_storage_path:str,reactions_list:list[str],training_data_folder:str,min_conc:int, max_con:int, tau_lists:list[list]|None,N_train_batch:int|None=None,batch_size:int|None=None,dark_state:bool=False,full_spec_gen:bool=True,workers:int|None=None,GPU:int|None=None):
+def training(model_storage_path:str,reactions_list:list[str],training_data_folder:str,min_conc:int, max_con:int, transient_absorption:bool,tau_lists:list[list]|None,N_train_batch:int|None=None,batch_size:int|None=None,dark_state:bool=False,full_spec_gen:bool=True,workers:int|None=None,GPU:int|None=None):
     gpus = tf.config.experimental.list_physical_devices('GPU')
     if GPU == None:
         for gpu in gpus:
@@ -71,6 +71,7 @@ def training(model_storage_path:str,reactions_list:list[str],training_data_folde
 
     if workers == None:
         workers = 6
+    workers = max(1, int(workers))
 
     if batch_size == None:
         batch_size = 32
@@ -146,7 +147,8 @@ def training(model_storage_path:str,reactions_list:list[str],training_data_folde
                                                 i,
                                                 dark_state,
                                                 full_spec_gen,
-                                                len(unique_letters)
+                                                len(unique_letters),
+                                                transient_absorption
                                                 )
 
         list_data = os.listdir(training_data_folder)       
@@ -166,11 +168,13 @@ def training(model_storage_path:str,reactions_list:list[str],training_data_folde
             metrics= metrics # Optional metrics
         )
 
+        print(f"Training with GPU index {GPU} and {workers} workers")
         model.fit(training_generator,
                                     epochs=5,
-                                    callbacks= [lr_callback])
-        #workers= workers,
-        #max_queue_size=128,
+                                    callbacks=[lr_callback],
+                                    workers=workers,
+                                    max_queue_size=max(1, workers * 2),
+                                    use_multiprocessing=False)
     
         #Final_accuracy = model_history.history["accuracy"][-1]
         epochs = epochs + 1

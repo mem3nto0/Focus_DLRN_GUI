@@ -31,12 +31,14 @@ class ChemicalUpdateWidget(QWidget):
         #self.update_concentration_input_state()
         
         # Elements for loading a spectrum
-        self.spectrum_path_label = QLineEdit(placeholderText="Path to spectrum (Optional)", readOnly=True)
-        self.spectrum_path_button = QPushButton("Load")
-        spec_load_layout = QHBoxLayout()
-        self.spectrum_path_button.pressed.connect(self.load_spectrum)
-        spec_load_layout.addWidget(self.spectrum_path_label, stretch=3)
-        spec_load_layout.addWidget(self.spectrum_path_button, stretch=1)
+        # Hidden for now: keep the backend/storage logic intact, but do not show
+        # the upload field and button in the GUI.
+        # self.spectrum_path_label = QLineEdit(placeholderText="Path to spectrum (Optional)", readOnly=True)
+        # self.spectrum_path_button = QPushButton("Load")
+        # spec_load_layout = QHBoxLayout()
+        # self.spectrum_path_button.pressed.connect(self.load_spectrum)
+        # spec_load_layout.addWidget(self.spectrum_path_label, stretch=3)
+        # spec_load_layout.addWidget(self.spectrum_path_button, stretch=1)
 
         self.is_active_checkbox = QCheckBox("Is active")
         self.is_active_checkbox.setChecked(True)
@@ -52,8 +54,8 @@ class ChemicalUpdateWidget(QWidget):
         layout.addWidget(self.label_input)
         layout.addWidget(QLabel("Concentration:"))
         layout.addWidget(self.concentration_input)
-        layout.addWidget(QLabel("Spectrum:"))
-        layout.addLayout(spec_load_layout)
+        # layout.addWidget(QLabel("Spectrum:"))
+        # layout.addLayout(spec_load_layout)
         layout.addWidget(QLabel("Spectrum is active:"))
         layout.addWidget(self.is_active_checkbox)
         layout.addSpacing(20)
@@ -73,15 +75,15 @@ class ChemicalUpdateWidget(QWidget):
         """
         self.label_input.clear()
         self.concentration_input.clear()
-        self.spectrum_path_label.clear()
+        # self.spectrum_path_label.clear()
 
         self.selected_node = selected
 
         if self.selected_node and type(self.selected_node) == Chemical:
             self.label_input.setText(self.selected_node.label)
             self.concentration_input.setText(str(self.selected_node.concentration))
-            if self.selected_node.spectrum_path:
-                self.spectrum_path_label.setText(self.selected_node.spectrum_path)
+            # if self.selected_node.spectrum_path:
+            #     self.spectrum_path_label.setText(self.selected_node.spectrum_path)
             self.is_active_checkbox.setChecked(self.selected_node.is_active)
             self.set_elements_enabled(True)
 
@@ -101,8 +103,6 @@ class ChemicalUpdateWidget(QWidget):
         for widget in [
             self.label_input,
             self.concentration_input,
-            self.spectrum_path_label,
-            self.spectrum_path_button,
             self.confirm_button,
             self.remove_button,
             self.is_active_checkbox
@@ -149,15 +149,15 @@ class ChemicalUpdateWidget(QWidget):
             self.spectrum_path = None
             self.change_selected(None)
 
-    def load_spectrum(self):
-        if self.selected_node:
-            dialog = QFileDialog(self, "Load spectrum file")
-            dialog.setFileMode(QFileDialog.FileMode.ExistingFile)
-            # dialog.setNameFilter("TXT files (*.txt)")
-            if dialog.exec():
-                path = dialog.selectedFiles()[0]
-                self.spectrum_path = path
-                self.spectrum_path_label.setText(path)
+    # def load_spectrum(self):
+    #     if self.selected_node:
+    #         dialog = QFileDialog(self, "Load spectrum file")
+    #         dialog.setFileMode(QFileDialog.FileMode.ExistingFile)
+    #         # dialog.setNameFilter("TXT files (*.txt)")
+    #         if dialog.exec():
+    #             path = dialog.selectedFiles()[0]
+    #             self.spectrum_path = path
+    #             self.spectrum_path_label.setText(path)
     # def update_concentration_input_state(self):
     #     print(self.global_widget.min_max_conc)
     #     if self.global_widget.min_max_conc !=None:
