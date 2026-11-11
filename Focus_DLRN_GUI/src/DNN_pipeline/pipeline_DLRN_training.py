@@ -77,13 +77,12 @@ def training(model_storage_path:str,reactions_list:list[str],training_data_folde
         batch_size = 32
 
     if N_train_batch == None:
-        #N_train_batch = batch_size*(512) #512
-        N_train_batch = batch_size
+        N_train_batch = batch_size*(512) 
 
     start = time.time()
 
     N_model = len(reactions_list)
-    model = get_focused_DRLN(N_model) # fix number of tau in the model
+    model = get_focused_DRLN(N_model)
 
     # losses has to be a dictionary
 
@@ -110,7 +109,6 @@ def training(model_storage_path:str,reactions_list:list[str],training_data_folde
             letters = re.findall(r'[A-Za-z]', reaction)
             unique_letters.update(letters)
 
-    #####!!!!!!!!!!!!!!!1 WHY ?  Ask nikoabnout epochs so only 3 but no accuracy ???
     while epochs < 3: # and Final_accuracy < 0.9
 
         lr_value = max(0.0001 - 0.000025*epochs, 1.25e-5)  # fixed reference point
